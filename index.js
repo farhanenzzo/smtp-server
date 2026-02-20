@@ -45,55 +45,45 @@ app.post('/api/refer-friend', async (req, res) => {
 
     // Email content
     const mailOptions = {
-      from: `"PayWifiBill Referral" <${process.env.EMAIL_USER}>`,
-      to: process.env.ORG_EMAIL || 'farhan.enzo99@gmail.com',
+      from: `"PayWifiBill" <${process.env.EMAIL_USER}>`,
+      to: process.env.EMAIL_USER,
       replyTo: refererEmail,
-      subject: `🎉 New Referral from ${refererName}`,
+      subject: `Referral: ${refererName} referred ${friendName}`,
       html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <div style="background: linear-gradient(135deg, #007AFF 0%, #0056b3 100%); padding: 30px; border-radius: 12px 12px 0 0;">
-            <h1 style="color: white; margin: 0; font-size: 24px;">New Friend Referral</h1>
-          </div>
-          
-          <div style="background: #f8fafc; padding: 30px; border: 1px solid #e2e8f0; border-top: none;">
-            <h2 style="color: #1e293b; font-size: 18px; margin-top: 0;">Referrer Information</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="padding: 8px 0; color: #64748b; width: 120px;">Name:</td>
-                <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${refererName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #64748b;">Email:</td>
-                <td style="padding: 8px 0; color: #1e293b;">${refererEmail}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #64748b;">Phone:</td>
-                <td style="padding: 8px 0; color: #1e293b;">${refererPhone || 'Not provided'}</td>
-              </tr>
-            </table>
-            
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
-            
-            <h2 style="color: #1e293b; font-size: 18px;">Friend Being Referred</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-              <tr>
-                <td style="padding: 8px 0; color: #64748b; width: 120px;">Name:</td>
-                <td style="padding: 8px 0; color: #1e293b; font-weight: 600;">${friendName}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #64748b;">Phone:</td>
-                <td style="padding: 8px 0; color: #1e293b;">${friendPhone}</td>
-              </tr>
-            </table>
-          </div>
-          
-          <div style="background: #1e293b; padding: 20px; border-radius: 0 0 12px 12px; text-align: center;">
-            <p style="color: #94a3b8; margin: 0; font-size: 14px;">
-              PayWifiBill Subscriber Portal
-            </p>
-          </div>
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #1d1d1f;">
+      
+      <div style="margin-bottom: 40px;">
+        <p style="font-size: 14px; font-weight: 600; color: #0071e3; margin-bottom: 8px; letter-spacing: -0.01em;">Referral Program</p>
+        <h1 style="font-size: 24px; font-weight: 600; letter-spacing: -0.02em; margin: 0;">New referral received.</h1>
+      </div>
+
+      <div style="background-color: #ffffff; border: 1px solid #f2f2f2; border-radius: 12px; padding: 32px;">
+        
+        <h2 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #86868b; margin-bottom: 16px;">Referrer Details</h2>
+        <div style="margin-bottom: 32px;">
+          <p style="margin: 4px 0; font-size: 15px;"><strong>${refererName}</strong></p>
+          <p style="margin: 4px 0; font-size: 15px; color: #515154;">${refererEmail}</p>
+          <p style="margin: 4px 0; font-size: 15px; color: #515154;">${refererPhone || 'No phone provided'}</p>
         </div>
-      `,
+
+        <div style="height: 1px; background-color: #f2f2f2; margin-bottom: 32px;"></div>
+
+        <h2 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: #86868b; margin-bottom: 16px;">Referred Friend</h2>
+        <div>
+          <p style="margin: 4px 0; font-size: 15px;"><strong>${friendName}</strong></p>
+          <p style="margin: 4px 0; font-size: 15px; color: #515154;">${friendPhone}</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 40px; padding: 0 32px; text-align: center;">
+        <p style="font-size: 12px; color: #86868b; line-height: 1.5;">
+          Sent via PayWifiBill Subscriber Portal.<br />
+          This is an automated notification regarding your referral program.
+        </p>
+      </div>
+    </div>
+  `,
     };
 
     // Send email
